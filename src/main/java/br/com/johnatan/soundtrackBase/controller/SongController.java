@@ -27,9 +27,14 @@ public class SongController {
         return ResponseEntity.status(201).body(createdSong);
     }
 
-    @GetMapping("/search/artist")
-    public List<SongDTO> searchSongsByArtistName(@RequestParam String nameArtist) {
+    @GetMapping("/search")
+    public List<SongDTO> searchSongsByArtistName(@RequestParam("nameArtist") String nameArtist) {
         return songService.searchSongsByArtistName(nameArtist);
+    }
+
+    @GetMapping("/artists/{id}/songs")
+    public List<SongDTO> getSongsByArtistId(@PathVariable Long id) {
+        return songService.findSongsByArtistId(id);
     }
 
     @GetMapping("/search/year")

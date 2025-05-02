@@ -52,4 +52,13 @@ public class SongService {
                 .map(SongMapper::toDTO)
                 .collect(Collectors.toList());
     }
+
+    public List<SongDTO> findSongsByArtistId(Long id) {
+        Artist artist = artistRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Artista não encontrado"));
+
+        return artist.getSongs().stream()
+                .map(SongMapper::toDTO)
+                .toList();
+    }
 }
