@@ -10,6 +10,7 @@ import br.com.johnatan.soundtrackBase.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class SongService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public Song createSong(SongDTO songDTO) {
         Artist artist = artistRepository.findById(songDTO.artistId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Artista não encontrado"));
